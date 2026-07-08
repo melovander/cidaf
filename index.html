@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d4e89">
+<title>IDAF/AC - Multas e Taxas</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="app-header">
+  <button id="btn-home" class="btn-icon" aria-label="Voltar ao início" hidden>&#8592;</button>
+  <h1 id="header-title">IDAF/AC</h1>
+</header>
+
+<main id="app">
+  <!-- Tela inicial -->
+  <section id="view-home" class="view">
+    <p class="subtitle">Cálculo de multas e taxas &middot; Decreto 11.368/2023</p>
+    <div class="home-grid">
+      <button class="home-btn" data-view="view-multas">
+        <span class="home-btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 6h14"/><path d="M5 6l-3 7a3.5 3.5 0 0 0 6 0z"/><path d="M19 6l-3 7a3.5 3.5 0 0 0 6 0z"/><path d="M8 21h8"/></svg>
+        </span>
+        <span>Calculadora de Multas</span>
+      </button>
+      <button class="home-btn" data-view="view-taxas">
+        <span class="home-btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+        </span>
+        <span>Taxas e Emolumentos</span>
+      </button>
+      <button class="home-btn" data-view="view-gta">
+        <span class="home-btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M9 7h6"/><path d="M9 11h6"/><path d="M9 15h4"/></svg>
+        </span>
+        <span>GTA</span>
+      </button>
+      <button class="home-btn" data-view="view-busca">
+        <span class="home-btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </span>
+        <span>Buscar Infração</span>
+      </button>
+    </div>
+    <p class="disclaimer">Este aplicativo N&Atilde;O sugere enquadramento legal. O servidor responsável escolhe a infração; o app apenas calcula o valor e ajuda a redigir a descrição.</p>
+
+  </section>
+
+  <!-- MÓDULO 1: MULTAS -->
+  <section id="view-multas" class="view" hidden>
+    <div class="field-group">
+      <label for="multa-tipo">Tipo de multa</label>
+      <select id="multa-tipo">
+        <option value="por_cabeca">Por cabeça (Anexo II) - art. 228, §3º/§4º/§5º</option>
+        <option value="declaracao_rebanho">Declaração de rebanho fora do prazo - art. 228, §6º</option>
+        <option value="valor_fixo">Valor fixo - art. 228, §7º</option>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <label for="multa-busca">Buscar infração</label>
+      <input type="search" id="multa-busca" placeholder="Digite parte do texto ou artigo...">
+    </div>
+
+    <div id="multa-lista-infracoes" class="option-list"></div>
+
+    <div id="multa-detalhe" class="detail-box" hidden>
+      <button type="button" id="multa-trocar" class="btn-link">&#8592; Escolher outra infração</button>
+      <div id="multa-infracao-texto" class="infracao-texto"></div>
+
+      <div id="multa-linhas-container"></div>
+      <button id="multa-add-linha" class="btn-secondary" hidden>+ Adicionar espécie/grupo</button>
+
+      <div class="field-group toggle-group">
+        <label class="switch">
+          <input type="checkbox" id="multa-reincidencia">
+          <span>Reincidência (multiplica o total por 2)</span>
+        </label>
+      </div>
+
+      <div id="multa-resultado" class="result-box"></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 2: TAXAS -->
+  <section id="view-taxas" class="view" hidden>
+    <div class="field-group">
+      <label for="taxa-busca">Buscar taxa</label>
+      <input type="search" id="taxa-busca" placeholder="Digite parte do texto...">
+    </div>
+
+    <div id="taxa-lista" class="option-list"></div>
+
+    <div id="taxa-detalhe" class="detail-box" hidden>
+      <button type="button" id="taxa-trocar" class="btn-link">&#8592; Escolher outra taxa</button>
+      <div id="taxa-infracao-texto" class="infracao-texto"></div>
+      <div id="taxa-campos"></div>
+      <div id="taxa-resultado" class="result-box"></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 3: GTA -->
+  <section id="view-gta" class="view" hidden>
+    <div class="field-group">
+      <label for="gta-busca">Buscar espécie/grupo</label>
+      <input type="search" id="gta-busca" placeholder="Digite parte do texto...">
+    </div>
+
+    <div id="gta-lista" class="option-list"></div>
+
+    <div id="gta-detalhe" class="detail-box" hidden>
+      <button type="button" id="gta-trocar" class="btn-link">&#8592; Escolher outro grupo</button>
+      <div id="gta-infracao-texto" class="infracao-texto"></div>
+      <div id="gta-campos"></div>
+      <div id="gta-resultado" class="result-box"></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 4: BUSCA GERAL -->
+  <section id="view-busca" class="view" hidden>
+    <div class="field-group">
+      <label for="busca-geral">Buscar em todas as infrações, taxas e GTA</label>
+      <input type="search" id="busca-geral" placeholder="Digite parte do texto ou artigo...">
+    </div>
+    <div id="busca-geral-resultados" class="option-list busca-geral"></div>
+  </section>
+</main>
+
+<footer class="app-footer" id="app-footer">
+  <span id="footer-urf">Carregando URF/AC...</span>
+  <span class="footer-credit">Desenvolvido por Vander da Rocha Melo</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

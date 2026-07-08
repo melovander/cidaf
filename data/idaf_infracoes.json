@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "titulo": "Base de multas, taxas e emolumentos do IDAF/AC",
+    "decreto_base": "Decreto nº 11.368, de 23 de novembro de 2023",
+    "decreto_alterador": "Decreto nº 11.728, de 31 de julho de 2025",
+    "lei_base": "Lei nº 3.724, de 13 de abril de 2021",
+    "observacao_texto": "Todos os valores e descrições refletem o texto VIGENTE, já com as alterações do Decreto 11.728/2025.",
+    "principios_do_app": [
+      "O app NÃO sugere enquadramento; o servidor (AFEA ou médico veterinário oficial) escolhe a infração. O app apenas calcula o valor e auxilia na confecção da descrição.",
+      "A URF/AC é fixa no código e só é atualizada pelo autor do app, via nova versão. Não é editável pelo usuário final."
+    ],
+    "urf_ac": {
+      "valor_reais": 124.47,
+      "exercicio": 2026,
+      "fonte": "Portaria SEFAZ nº 753, de 18 de dezembro de 2025",
+      "vigencia": "a partir de 1º de janeiro de 2026",
+      "atualizacao": "anual, pelo INPC (art. 237 do Decreto 11.368/2023)"
+    },
+    "regras_transversais": {
+      "piso_multa_urf": {
+        "valor": 0.047,
+        "descricao": "Nenhuma multa lavrada pelo IDAF poderá ser inferior a 0,047 URF.",
+        "base_legal": "art. 228, §2º"
+      },
+      "reincidencia": {
+        "multiplicador": 2,
+        "descricao": "A multa será aplicada em dobro quando houver reincidência na mesma infração.",
+        "reabilitacao_anos": 2,
+        "reabilitacao_descricao": "A reabilitação do infrator, para efeito de afastamento da reincidência, dá-se em 2 anos, contados da data da infração.",
+        "base_legal": "art. 225, §1º e §2º"
+      },
+      "advertencia": {
+        "limite_urf": 10,
+        "descricao": "O Auto de Infração PODERÁ ser convertido em Auto de Advertência quando cumpridas cumulativamente as condições abaixo.",
+        "condicoes": [
+          "não ter o infrator agido com dolo ou má-fé",
+          "tratar-se de infrator primário (não autuado nos últimos 2 anos)",
+          "infração de menor potencial ofensivo (multa INFERIOR a 10 URF/AC)"
+        ],
+        "emissao_direta": "No ato da lavratura, o servidor pode optar pela emissão direta do Auto de Advertência quando presente uma das condições.",
+        "base_legal": "art. 227, §3º e §3º-A (redação dada pelo Decreto 11.728/2025)",
+        "nota": "Limite anterior era de 2,5 URF. Foi alterado para 10 URF pelo Decreto 11.728/2025."
+      },
+      "prazo_recurso_dias": 30,
+      "parcelamento": {
+        "max_parcelas": 12,
+        "parcela_minima_urf": 3,
+        "juros": "sem juros ou correção monetária",
+        "base_legal": "art. 230"
+      }
+    }
+  },
+
+  "tabela_especies_anexo_ii": {
+    "descricao": "Base de cálculo POR CABEÇA para as infrações dos §3º, §4º e §5º do art. 228. Valor em URF por unidade.",
+    "base_legal": "art. 228 c/c Anexo II",
+    "itens": [
+      { "especie": "Bovina", "forma": "por cabeça", "urf": 2.5 },
+      { "especie": "Bubalina", "forma": "por cabeça", "urf": 2.5 },
+      { "especie": "Equina", "forma": "por cabeça", "urf": 2.5 },
+      { "especie": "Muar", "forma": "por cabeça", "urf": 2.5 },
+      { "especie": "Asinina", "forma": "por cabeça", "urf": 2.5 },
+      { "especie": "Ovino", "forma": "por cabeça", "urf": 0.5 },
+      { "especie": "Caprino", "forma": "por cabeça", "urf": 0.5 },
+      { "especie": "Suídeos", "forma": "por cabeça", "urf": 0.5 },
+      { "especie": "Aves 1 dia", "forma": "por cabeça", "urf_variavel": 0.008, "urf_fixo_por_auto": 0.047, "nota": "0,008 por cabeça MAIS 0,047 URF fixo por auto." },
+      { "especie": "Ovos férteis", "forma": "por unidade", "urf_variavel": 0.008, "urf_fixo_por_auto": 0.047, "nota": "0,008 por unidade MAIS 0,047 URF fixo por auto." },
+      { "especie": "Demais aves", "forma": "por cabeça", "urf": 0.1 },
+      { "especie": "Peixes Vivos", "forma": "por cabeça", "urf": 0.047 },
+      { "especie": "Alevinos/ovos/cistos", "forma": "por milheiro", "urf": 1.0 },
+      { "especie": "Pescado", "forma": "por tonelada", "urf": 25.0 },
+      { "especie": "Demais espécies", "forma": "ato normativo do presidente", "urf_min": 0.047, "urf_max": 50.0, "nota": "Faixa de 0,047 a 50 URF, definida por ato normativo do presidente do IDAF." },
+      { "especie": "Amostra Laboratorial", "forma": "por amostra", "urf": 2.5 }
+    ]
+  },
+
+  "infracoes_por_cabeca": {
+    "descricao": "Multa = quantidade x valor da espécie (tabela Anexo II) x multiplicador. Aplicar piso de 0,047 URF e dobra em reincidência. Cumulativa entre espécies envolvidas.",
+    "multiplicadores": {
+      "1": "art. 228, §3º",
+      "2": "art. 228, §4º",
+      "4": "art. 228, §5º"
+    },
+    "itens": [
+      { "id": "pc_3a", "multiplicador": 1, "por": "cabeça", "descricao": "Responsáveis pelas explorações pecuárias de origem que não vacinarem os animais do rebanho dentro dos prazos e condições fixados pelo IDAF/AC.", "previsao_legal": "art. 228, §3º, a" },
+      { "id": "pc_3b", "multiplicador": 1, "por": "cabeça", "descricao": "Transportador que não exigir do proprietário/detentor/possuidor, ou não estiver de posse durante o transporte, dos documentos zoossanitários exigidos, com validade não expirada.", "previsao_legal": "art. 228, §3º, b" },
+      { "id": "pc_3c", "multiplicador": 1, "por": "cabeça", "descricao": "Responsáveis pelas explorações de destino que não exigirem os documentos zoossanitários exigidos, com validade não expirada.", "previsao_legal": "art. 228, §3º, c" },
+      { "id": "pc_3d", "multiplicador": 1, "por": "cabeça", "descricao": "Responsáveis pelas explorações de origem que não fornecerem os documentos zoossanitários exigidos, com validade não expirada.", "previsao_legal": "art. 228, §3º, d" },
+      { "id": "pc_3e", "multiplicador": 1, "por": "cabeça", "descricao": "Responsáveis pelas explorações que promoverem trânsito, movimentação ou transferência de titularidade de animais desacompanhados de documentos zoossanitários, com validade não expirada.", "previsao_legal": "art. 228, §3º, e" },
+      { "id": "pc_3f", "multiplicador": 1, "por": "cabeça", "descricao": "Responsáveis pelas explorações que promoverem trânsito/movimentação/transferência no período entre a coleta de material e o resultado final do exame laboratorial.", "previsao_legal": "art. 228, §3º, f" },
+      { "id": "pc_3g", "multiplicador": 1, "por": "cabeça", "descricao": "Responsáveis pelas explorações que tiverem diferença de estoque de rebanho, por sexo e/ou faixa etária.", "previsao_legal": "art. 228, §3º, g" },
+      { "id": "pc_3h", "multiplicador": 1, "por": "amostra", "descricao": "Pessoas não credenciadas/habilitadas/cadastradas que coletarem amostras para exames laboratoriais quando expressamente proibido pelo SVO.", "previsao_legal": "art. 228, §3º, h" },
+      { "id": "pc_3i", "multiplicador": 1, "por": "amostra", "descricao": "Médicos veterinários e laboratórios credenciados que receberem materiais coletados por pessoa não credenciada/cadastrada/habilitada quando expressamente proibido pelo SVO.", "previsao_legal": "art. 228, §3º, i" },
+      { "id": "pc_3j", "multiplicador": 1, "por": "animal", "descricao": "Médicos veterinários que realizarem exames e/ou emitirem laudos/atestados em desacordo com a legislação sanitária vigente.", "previsao_legal": "art. 228, §3º, j" },
+      { "id": "pc_3k", "multiplicador": 1, "por": "cabeça", "descricao": "Responsáveis pelas explorações que aplicarem vacinas e outros medicamentos em desacordo com a legislação vigente. Agravante (dobra) se já autuado pelo mesmo motivo.", "previsao_legal": "art. 228, §3º, k" },
+
+      { "id": "pc_4a", "multiplicador": 2, "por": "cabeça", "descricao": "Transportadores que promoverem ingresso/trânsito no Acre de animais procedentes de regiões da Federação de classificação de risco inferior, com ou sem documentos, sem autorização oficial do IDAF/AC.", "previsao_legal": "art. 228, §4º, a" },
+      { "id": "pc_4b", "multiplicador": 2, "por": "cabeça", "descricao": "Responsáveis pelas explorações de destino que promoverem ingresso no Acre de animais de regiões da Federação de risco inferior, com ou sem documentos, sem autorização oficial do IDAF/AC.", "previsao_legal": "art. 228, §4º, b" },
+      { "id": "pc_4c", "multiplicador": 2, "por": "cabeça", "descricao": "Médicos veterinários requisitantes de exame que se recusarem a identificar e marcar os animais positivos.", "previsao_legal": "art. 228, §4º, c" },
+
+      { "id": "pc_5a", "multiplicador": 4, "por": "cabeça", "descricao": "Agentes e entidades promotoras de aglomerações de animais que permitirem ingresso/egresso no recinto sem os documentos zoossanitários, com validade não expirada.", "previsao_legal": "art. 228, §5º, a" },
+      { "id": "pc_5b", "multiplicador": 4, "por": "cabeça", "descricao": "Transportadores que promoverem ingresso/trânsito no Acre de animais procedentes de outros países de risco inferior, com ou sem documentos, sem autorização oficial do IDAF/AC.", "previsao_legal": "art. 228, §5º, b" },
+      { "id": "pc_5c", "multiplicador": 4, "por": "cabeça", "descricao": "Responsáveis pelas explorações de destino que promoverem ingresso no Acre de animais de outros países de risco inferior, com ou sem documentos, sem autorização oficial do IDAF/AC.", "previsao_legal": "art. 228, §5º, c" },
+      { "id": "pc_5d", "multiplicador": 4, "por": "cabeça", "descricao": "Responsáveis pelas explorações que promoverem trânsito de animais procedentes de áreas ou propriedades interditadas pelo IDAF/AC.", "previsao_legal": "art. 228, §5º, d" },
+      { "id": "pc_5e", "multiplicador": 4, "por": "cabeça", "descricao": "Que se recusarem a isolar os animais quando determinado pelo IDAF/AC.", "previsao_legal": "art. 228, §5º, e" },
+      { "id": "pc_5f", "multiplicador": 4, "por": "cabeça", "descricao": "Proprietários, possuidores e detentores que utilizarem no rebanho substâncias proibidas, não registradas ou nocivas à saúde humana.", "previsao_legal": "art. 228, §5º, f" }
+    ]
+  },
+
+  "infracoes_declaracao_rebanho": {
+    "descricao": "Declarar o rebanho fora do prazo fixado pelo IDAF. Multa POR CABEÇA, com valor próprio por grupo de espécie. NÃO usa a tabela do Anexo II.",
+    "base_legal": "art. 228, §6º, I",
+    "itens": [
+      { "id": "dec_bov", "por": "cabeça", "grupo": "Bovino, equino, asinino, muar e/ou bubalino", "urf": 0.20, "previsao_legal": "art. 228, §6º, I, a" },
+      { "id": "dec_ovi", "por": "cabeça", "grupo": "Ovino, caprino e/ou suíno", "urf": 0.05, "previsao_legal": "art. 228, §6º, I, b" },
+      { "id": "dec_ave", "por": "cabeça", "grupo": "Aves", "urf": 0.02, "previsao_legal": "art. 228, §6º, I, c" }
+    ],
+    "medida_adicional": "Além da multa, a exploração pecuária fica interditada temporariamente, com proibição de ingresso e egresso de animais, até a atualização cadastral (art. 228, §6º, II)."
+  },
+
+  "infracoes_valor_fixo": {
+    "descricao": "Multas de valor fixo, independentes da espécie. Aplicar dobra em reincidência.",
+    "base_legal": "art. 228, §7º",
+    "grupos": [
+      {
+        "valor_urf": 2.5,
+        "previsao_legal_base": "art. 228, §7º, I",
+        "itens": [
+          { "id": "vf_7Ia", "por": "propriedade", "descricao": "Explorações que, nas campanhas oficiais de vacinação, deixarem de comprovar e/ou comunicar a vacinação com as informações cadastrais do rebanho e do produto, no prazo fixado pelo IDAF/AC.", "previsao_legal": "art. 228, §7º, I, a" },
+          { "id": "vf_7Ib", "por": "auto de infração", "descricao": "Transportador que se recusar a submeter o veículo à limpeza e desinfecção após cada transporte intra ou interestadual.", "previsao_legal": "art. 228, §7º, I, b" },
+          { "id": "vf_7Ic", "por": "auto de infração", "descricao": "Administrado que deixar de notificar ao IDAF/AC a mortalidade de animais de que tiver conhecimento, em prazo não superior a 24 horas.", "previsao_legal": "art. 228, §7º, I, c" },
+          { "id": "vf_7Id", "por": "auto de infração", "descricao": "Explorações que descumprirem o inciso XII do art. 7º (manejo, lotação e bem-estar).", "previsao_legal": "art. 228, §7º, I, d" }
+        ]
+      },
+      {
+        "valor_urf": 20.0,
+        "previsao_legal_base": "art. 228, §7º, II",
+        "itens": [
+          { "id": "vf_7IIa", "por": "carga", "descricao": "Transportadores de produtos, subprodutos de origem animal, materiais biológicos e resíduos de criação que não exigirem ou não estiverem de posse dos documentos sanitários exigidos, com validade não expirada.", "previsao_legal": "art. 228, §7º, II, a" },
+          { "id": "vf_7IIb", "por": "carga", "descricao": "Proprietários/possuidores/detentores de produtos, subprodutos, materiais biológicos e resíduos que não fornecerem os documentos sanitários exigidos.", "previsao_legal": "art. 228, §7º, II, b" },
+          { "id": "vf_7IIc", "por": "carga", "descricao": "Estabelecimentos de destino de produtos, subprodutos, materiais biológicos e resíduos que não exigirem os documentos sanitários exigidos.", "previsao_legal": "art. 228, §7º, II, c" },
+          { "id": "vf_7IId", "por": "evento", "descricao": "Responsáveis por aglomerações que não encaminharem ao IDAF/AC os relatórios completos do certame (incluindo relatório do pregão nos leilões) em até 72 horas após o encerramento.", "previsao_legal": "art. 228, §7º, II, d" },
+          { "id": "vf_7IIe", "por": "auto de infração", "descricao": "Revendedoras de produtos de uso na pecuária que deixarem de remeter ao IDAF/AC, no prazo, o relatório de comercialização e o saldo de vacinas.", "previsao_legal": "art. 228, §7º, II, e" },
+          { "id": "vf_7IIf", "por": "auto de infração", "descricao": "Explorações que deixarem de cumprir a notificação de vacinação assistida ou de conferência de rebanho pelo IDAF/AC.", "previsao_legal": "art. 228, §7º, II, f" },
+          { "id": "vf_7IIg", "por": "auto de infração", "descricao": "Estabelecimentos e revendedoras que deixarem de cumprir notificações da Defesa Sanitária emitidas pelo IDAF/AC.", "previsao_legal": "art. 228, §7º, II, g" },
+          { "id": "vf_7IIh", "por": "auto de infração", "descricao": "Distribuidoras/estabelecimentos que receberem vacinas sem serem submetidas à fiscalização ou controle oficial do IDAF/AC.", "previsao_legal": "art. 228, §7º, II, h" },
+          { "id": "vf_7IIi", "por": "auto de infração", "descricao": "Estabelecimentos que comercializem/armazenem/manipulem vacinas, produtos veterinários e material biológico e emitirem documentos fiscais não correspondentes à venda/entrega efetiva.", "previsao_legal": "art. 228, §7º, II, i" },
+          { "id": "vf_7IIj", "por": "auto de infração", "descricao": "Estabelecimentos que não emitirem documentos fiscais tendo efetivado a venda/entrega do produto.", "previsao_legal": "art. 228, §7º, II, j" },
+          { "id": "vf_7IIk", "por": "auto de infração", "descricao": "Estabelecimentos que emitirem documento de controle de estoque não correspondente à efetiva apuração, quando da fiscalização.", "previsao_legal": "art. 228, §7º, II, k" },
+          { "id": "vf_7IIl", "por": "auto de infração", "descricao": "Que descumprirem os incisos I e II do art. 11 (deveres do transportador: cadastro e informações cadastrais).", "previsao_legal": "art. 228, §7º, II, l" }
+        ]
+      },
+      {
+        "valor_urf": 25.0,
+        "previsao_legal_base": "art. 228, §7º, III",
+        "itens": [
+          { "id": "vf_7IIIa", "por": "auto de infração", "descricao": "Explorações que utilizarem produtos ou substâncias para fins diversos da indicação registrada no órgão competente.", "previsao_legal": "art. 228, §7º, III, a" },
+          { "id": "vf_7IIIb", "por": "carga", "descricao": "Transportadores de animais, produtos, subprodutos, materiais biológicos e resíduos que não pararem nas barreiras de fiscalização fixas ou móveis do IDAF/AC.", "previsao_legal": "art. 203, §3º c/c art. 228, §7º, III, b" },
+          { "id": "vf_7IIIc", "por": "auto de infração", "descricao": "Que descumprirem o inciso IX do art. 11 (permitir inspeções e fiscalizações durante o transporte).", "previsao_legal": "art. 228, §7º, III, c" }
+        ]
+      },
+      {
+        "valor_urf": 40.0,
+        "previsao_legal_base": "art. 228, §7º, IV",
+        "itens": [
+          { "id": "vf_7IVa", "por": "carga", "descricao": "Transportadores de produtos, subprodutos, material biológico e resíduo procedentes de outros países de risco inferior, com ou sem documentos, sem autorização oficial do IDAF/AC.", "previsao_legal": "art. 228, §7º, IV, a" },
+          { "id": "vf_7IVb", "por": "carga", "descricao": "Estabelecimentos de destino de produtos, subprodutos, materiais biológicos e resíduos de outros países de risco inferior, com ou sem documentos, sem autorização oficial do IDAF/AC.", "previsao_legal": "art. 228, §7º, IV, b" },
+          { "id": "vf_7IVc", "por": "auto de infração", "descricao": "Estabelecimentos que comercializarem vacinas/produtos veterinários/material biológico em desacordo com os documentos fiscais.", "previsao_legal": "art. 228, §7º, IV, c" },
+          { "id": "vf_7IVd", "por": "auto de infração", "descricao": "Estabelecimentos que armazenarem/manipularem/comercializarem/distribuírem vacinas, produtos de uso na pecuária, material biológico e insumos em desacordo com a legislação vigente.", "previsao_legal": "art. 228, §7º, IV, d" },
+          { "id": "vf_7IVe", "por": "auto de infração", "descricao": "Que deixarem de cumprir o inciso IX do art. 8º (acatar e cumprir as disposições do regulamento, deveres dos estabelecimentos de aglomeração).", "previsao_legal": "art. 228, §7º, IV, e" },
+          { "id": "vf_7IVf", "por": "auto de infração", "descricao": "Que descumprirem o inciso III do art. 11 (prestar informações de identificação pessoal na fiscalização).", "previsao_legal": "art. 228, §7º, IV, f" }
+        ]
+      },
+      {
+        "valor_urf": 50.0,
+        "previsao_legal_base": "art. 228, §7º, V",
+        "itens": [
+          { "id": "vf_7Va", "por": "auto de infração", "descricao": "Explorações ou transportadores que não permitirem ou dificultarem a coleta de amostras de interesse da Defesa Sanitária Animal.", "previsao_legal": "art. 228, §7º, V, a" },
+          { "id": "vf_7Vb", "por": "auto de infração", "descricao": "Que deixarem de notificar ao IDAF/AC a existência de animais com suspeita de doença ou o surgimento de doenças de que tenham conhecimento.", "previsao_legal": "art. 228, §7º, V, b" },
+          { "id": "vf_7Vc", "por": "auto de infração", "descricao": "Que resistirem à ordem de retorno à origem e/ou à adoção de medidas técnicas em trânsito durante fiscalização, ainda que o transporte esteja acobertado por documentos.", "previsao_legal": "art. 228, §7º, V, c" },
+          { "id": "vf_7Vd", "por": "auto de infração", "descricao": "Abatedores, laticínios, congêneres e promotores de aglomeração (permanentes ou eventuais) que funcionarem sem autorização, cadastro e/ou credenciamento no IDAF/AC.", "previsao_legal": "art. 228, §7º, V, d" },
+          { "id": "vf_7Ve", "por": "auto de infração", "descricao": "Distribuidoras, revendedoras, centrais de coleta de sêmen/embriões e laboratórios que funcionarem sem credenciamento no IDAF/AC.", "previsao_legal": "art. 228, §7º, V, e" },
+          { "id": "vf_7Vf", "por": "auto de infração", "descricao": "Administrado que não permitir ou dificultar a ação fiscal do IDAF/AC.", "previsao_legal": "art. 228, §7º, V, f" },
+          { "id": "vf_7Vg", "por": "auto de infração", "descricao": "Que deixarem de notificar ao IDAF/AC a existência de animais com suspeita de doença de notificação obrigatória em período superior a 24 horas.", "previsao_legal": "art. 228, §7º, V, g" },
+          { "id": "vf_7Vh", "por": "auto de infração", "descricao": "Que deixarem de cumprir as alíneas a, b, c e d do inciso XII do art. 7º.", "previsao_legal": "art. 228, §7º, V, h" },
+          { "id": "vf_7Vi", "por": "auto de infração", "descricao": "Que deixarem de cumprir o inciso XII do art. 8º.", "previsao_legal": "art. 228, §7º, V, i" },
+          { "id": "vf_7Vj", "por": "auto de infração", "descricao": "Que deixarem de cumprir os incisos I, II ou III do art. 9º (prazos de cadastramento de recintos).", "previsao_legal": "art. 228, §7º, V, j" }
+        ]
+      },
+      {
+        "valor_urf": 70.0,
+        "previsao_legal_base": "art. 228, §7º, VI",
+        "itens": [
+          { "id": "vf_7VIa", "por": "auto de infração", "descricao": "Que promoverem o comércio ambulante de produtos veterinários de uso na pecuária.", "previsao_legal": "art. 228, §7º, VI, a" },
+          { "id": "vf_7VIb", "por": "auto de infração", "descricao": "Explorações que requererem GTA para cedê-la a título de empréstimo a outros e/ou para fins diversos da sua utilidade.", "previsao_legal": "art. 228, §7º, VI, b" },
+          { "id": "vf_7VIc", "por": "auto de infração", "descricao": "Que simularem medidas de prevenção, combate, controle, erradicação e vigilância previstas na legislação de Defesa Sanitária Animal.", "previsao_legal": "art. 228, §7º, VI, c" },
+          { "id": "vf_7VId", "por": "auto de infração", "descricao": "Que não cumprirem as medidas compulsórias previstas pelo IDAF/AC para prevenção, combate, controle, erradicação e vigilância das doenças.", "previsao_legal": "art. 228, §7º, VI, d" },
+          { "id": "vf_7VIe", "por": "auto de infração", "descricao": "Abatedores, laticínios, usinas de beneficiamento de leite e congêneres que não exigirem dos fornecedores os cadastros e documentos zoossanitários.", "previsao_legal": "art. 228, §7º, VI, e" },
+          { "id": "vf_7VIf", "por": "auto de infração", "descricao": "Estabelecimentos de abate que não fornecerem mensalmente ao IDAF/AC o relatório de abate (espécie, quantidade, sexo, GTAs e relação de fornecedores).", "previsao_legal": "art. 228, §7º, VI, f" },
+          { "id": "vf_7VIg", "por": "auto de infração", "descricao": "Depositários/vendedores que comercializarem produtos veterinários fraudados, adulterados, vencidos ou não registrados no MAPA.", "previsao_legal": "art. 228, §7º, VI, g" },
+          { "id": "vf_7VIh", "por": "auto de infração", "descricao": "Explorações que receberem GTA a título de empréstimo para fins diversos da sua utilidade.", "previsao_legal": "art. 228, §7º, VI, h" },
+          { "id": "vf_7VIi", "por": "auto de infração", "descricao": "Transportadores que desviarem, por tentativa ou efetividade, de barreira, corredor, obstáculo, posto de fiscalização sanitária ou rota injustificável.", "previsao_legal": "art. 228, §7º, VI, i" }
+        ]
+      },
+      {
+        "valor_urf": 100.0,
+        "previsao_legal_base": "art. 228, §7º, VII",
+        "itens": [
+          { "id": "vf_7VIIa", "por": "auto de infração", "descricao": "Explorações ou transportadores que impedirem, dificultarem ou embaraçarem o cumprimento das medidas sanitárias ou constrangerem o servidor responsável pela ação fiscal.", "previsao_legal": "art. 228, §7º, VII, a" },
+          { "id": "vf_7VIIb", "por": "auto de infração", "descricao": "Explorações, transportadores, promotores de eventos, abatedouros, laticínios e revendas que deixarem de acatar e cumprir os artigos do regulamento.", "previsao_legal": "art. 228, §7º, VII, b" },
+          { "id": "vf_7VIIc", "por": "auto de infração", "descricao": "Médicos veterinários privados RTs/habilitados responsáveis por eventos agropecuários que deixarem de cumprir o inciso VI do art. 8º.", "previsao_legal": "art. 228, §7º, VII, c" },
+          { "id": "vf_7VIId", "por": "auto de infração", "descricao": "Que descumprirem o inciso II do art. 10 (proibição de aglomeração de animais de mais de uma propriedade em leilão virtual).", "previsao_legal": "art. 228, §7º, VII, d" }
+        ]
+      },
+      {
+        "valor_urf": 120.0,
+        "previsao_legal_base": "art. 228, §7º, VIII",
+        "itens": [
+          { "id": "vf_7VIIIa", "por": "auto de infração", "descricao": "Estabelecimentos criatórios, comerciais e promotores de aglomerações que não cumprirem o disposto em auto de interdição necessário ao controle, vigilância ou eliminação de doenças.", "previsao_legal": "art. 228, §7º, VIII, a" },
+          { "id": "vf_7VIIIb", "por": "auto de infração", "descricao": "Que deixarem de cumprir o inciso III do art. 8º (facilitar os trabalhos de prevenção e combate às doenças).", "previsao_legal": "art. 228, §7º, VIII, b" },
+          { "id": "vf_7VIIIc", "por": "auto de infração", "descricao": "Que descumprirem o inciso X do art. 11 (permitir o sequestro e a segregação de animais com doenças infectocontagiosas).", "previsao_legal": "art. 228, §7º, VIII, c" }
+        ]
+      }
+    ]
+  },
+
+  "taxas_emolumentos": {
+    "descricao": "Taxas e emolumentos recolhidos diretamente ao IDAF/AC. Valores em URF, salvo indicação.",
+    "base_legal": "art. 232",
+    "itens": [
+      { "id": "tx_I", "descricao": "GTA (Guia de Trânsito Animal) para transporte de animais", "unidade": "conforme tabela GTA (Anexo III)", "remete_para": "tabela_gta_anexo_iii", "previsao_legal": "art. 232, I" },
+      { "id": "tx_II", "descricao": "CIS (Certificado de Inspeção Sanitária) e GTR (Guia de Trânsito de Resíduos)", "unidade": "por tonelada", "urf": 0.029, "previsao_legal": "art. 232, II" },
+      { "id": "tx_III", "descricao": "Cadastro de produtos de uso veterinário", "unidade": "por fórmula cadastrada", "urf": 17.38, "previsao_legal": "art. 232, III" },
+      { "id": "tx_IV", "descricao": "Emissão de registro e licenças de estabelecimentos de produto de uso na pecuária", "unidade": "por registro/licença", "urf": 5.90, "previsao_legal": "art. 232, IV" },
+      { "id": "tx_V", "descricao": "Desinfecção de veículo", "unidade": "por eixo", "urf": 0.50, "previsao_legal": "art. 232, V" },
+      { "id": "tx_VI", "descricao": "TTRA (Termo de Transferência de Responsabilidade de Animais)", "unidade": "por animal", "urf": 0.039, "previsao_legal": "art. 232, VI" },
+      { "id": "tx_VII", "descricao": "Declaração cadastral", "unidade": "por documento", "urf": 0.05, "previsao_legal": "art. 232, VII" },
+      { "id": "tx_VIII", "descricao": "Saldo", "unidade": "por documento", "urf": 0.04, "previsao_legal": "art. 232, VIII" },
+      { "id": "tx_IX", "descricao": "Extrato de Estoque Animal", "unidade": "por documento", "urf": 0.047, "urf_folha_adicional": 0.0077, "nota": "0,047 URF mais 0,0077 URF por folha adicional a partir da segunda.", "previsao_legal": "art. 232, IX" },
+      { "id": "tx_X", "descricao": "Registro de credenciamento de empresas promotoras de eventos de aglomerações (exposições, feiras, leilões e congêneres)", "unidade": "por registro", "urf": 5.90, "previsao_legal": "art. 232, X" },
+      { "id": "tx_XI", "descricao": "Blocos para controles e fiscalização em eventos agropecuários", "unidade": "por bloco", "urf": 2.00, "previsao_legal": "art. 232, XI" },
+      { "id": "tx_XII", "descricao": "Prestação de serviços como RT e/ou Habilitado em eventos ou aglomerações particulares", "unidade": "por evento", "urf": 8.00, "previsao_legal": "art. 232, XII" },
+      { "id": "tx_XIV", "descricao": "Outros cadastros, certificados, documentos e registros incorporados às práticas", "unidade": "por documento", "urf": 3.00, "nota": "Conforme Portaria do IDAF/AC.", "previsao_legal": "art. 232, XIV" }
+    ],
+    "diagnostico_laboratorial": {
+      "previsao_legal": "art. 232, XIII",
+      "itens": [
+        { "id": "lab_a", "descricao": "Anemia infecciosa equina (AIE)", "unidade": "por animal", "urf": 0.60 },
+        { "id": "lab_b", "descricao": "Raiva dos herbívoros e carnívoros", "unidade": "por animal", "urf": 0.60 },
+        { "id": "lab_c", "descricao": "Brucelose (prova rápida) até 500 cabeças", "unidade": "por animal", "urf": 0.40 },
+        { "id": "lab_d", "descricao": "Brucelose (prova rápida) acima de 500 cabeças", "unidade": "por animal", "urf": 0.30 },
+        { "id": "lab_e", "descricao": "Brucelose (prova lenta) abaixo de 500 cabeças", "unidade": "por animal", "urf": 0.40 },
+        { "id": "lab_f", "descricao": "Brucelose (prova lenta) acima de 500 cabeças", "unidade": "por animal", "urf": 0.20 },
+        { "id": "lab_g", "descricao": "Brucelose (prova do mercaptoetanol)", "unidade": "por prova", "urf": 0.60 },
+        { "id": "lab_h", "descricao": "Febre aftosa", "unidade": "por exame", "urf": 0.0, "nota": "Gratuito." },
+        { "id": "lab_i", "descricao": "Bacteriológico", "unidade": "por amostra", "urf": 2.80 },
+        { "id": "lab_j", "descricao": "Parasitológico (grandes animais)", "unidade": "por amostra", "urf": 1.50 },
+        { "id": "lab_k", "descricao": "Bacteriológico (pequenos animais)", "unidade": "por amostra", "urf": 1.5 },
+        { "id": "lab_l", "descricao": "Leptospirose (macroaglutinação)", "unidade": "por exame", "urf": 4.0 },
+        { "id": "lab_m", "descricao": "Tuberculose (tuberculinização intradérmica)", "unidade": "por animal", "urf": 0.50 },
+        { "id": "lab_n", "descricao": "Outros diagnósticos incorporados às práticas laboratoriais", "unidade": "por exame", "urf_min": 1.00, "urf_max": 4.00, "nota": "Faixa de 1,00 a 4,00 URF, conforme Portaria do IDAF/AC." }
+      ]
+    }
+  },
+
+  "tabela_gta_anexo_iii": {
+    "descricao": "Valores de emissão de GTA por espécie/grupo. Regras por fração exigem arredondamento para cima do número de grupos/milheiros.",
+    "base_legal": "art. 232, I c/c Anexo III",
+    "itens": [
+      { "id": "gta_bovideos", "grupo": "Bovídeos (bovinos e bubalinos), equídeos (equino, muar e asinino)", "unidade": "por animal", "urf": 0.039 },
+      { "id": "gta_ovi_sui", "grupo": "Ovinos, caprinos, suídeos (suínos e javalis) e taiassuídeos (cateto e queixada)", "unidade": "por animal", "urf": 0.016 },
+      { "id": "gta_aves1dia", "grupo": "Aves de 1 dia", "unidade": "a cada grupo de até 250 animais ou fração", "tamanho_grupo": 250, "urf": 0.06 },
+      { "id": "gta_aves_demais", "grupo": "Aves demais categorias", "unidade": "a cada grupo de até 250 animais ou fração", "tamanho_grupo": 250, "urf": 0.06 },
+      { "id": "gta_ovos", "grupo": "Ovos férteis", "unidade": "a cada grupo de até 250 ovos ou fração", "tamanho_grupo": 250, "urf": 0.06 },
+      { "id": "gta_peixes_alevinos", "grupo": "Peixes - alevinos", "unidade": "faixa por milheiro", "regra_faixa": [ { "ate_milheiros": 3, "urf": 0.05 }, { "acima_milheiros": 3, "urf_por_milheiro_ou_fracao_adicional": 0.02 } ], "nota": "Até 3 milheiros: 0,05. A partir de 3 milheiros, 0,02 por milheiro ou fração adicional." },
+      { "id": "gta_peixes_pescado", "grupo": "Peixes - pescado", "unidade": "por tonelada ou fração", "urf": 0.1 },
+      { "id": "gta_peixes_adultos", "grupo": "Peixes - adultos", "unidade": "a cada grupo de até 250 animais ou fração", "tamanho_grupo": 250, "urf": 0.05 },
+      { "id": "gta_peixes_ovos", "grupo": "Peixes - ovos/gametas/larvas/pós-larvas", "unidade": "a cada milhão ou fração", "tamanho_grupo": 1000000, "urf": 0.08 },
+      { "id": "gta_peixes_ornamentais", "grupo": "Peixes - ornamentais", "unidade": "por documento (GTA)", "urf": 0.08 },
+      { "id": "gta_outras", "grupo": "Qualquer outra espécie, grupo e/ou categoria animal não prevista", "unidade": "por documento (GTA)", "urf": 0.08 }
+    ]
+  }
+}
