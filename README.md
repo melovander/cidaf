@@ -1,4 +1,4 @@
-# IDAF/AC - Multas e Taxas (PWA offline)
+# CIDAF - Calculadora IDAF/AC (PWA offline)
 
 **Autor:** Vander da Rocha Melo
 

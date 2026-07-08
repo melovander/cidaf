@@ -71,7 +71,7 @@ function attachCopyButton(btnId, buildText) {
 /* ---------------- Navegação ---------------- */
 
 const VIEW_TITLES = {
-  "view-home": "IDAF/AC",
+  "view-home": "CIDAF",
   "view-multas": "Calculadora de Multas",
   "view-taxas": "Taxas e Emolumentos",
   "view-gta": "GTA - Guia de Trânsito Animal",
@@ -81,7 +81,7 @@ const VIEW_TITLES = {
 function showView(id) {
   document.querySelectorAll(".view").forEach((v) => { v.hidden = true; });
   el(id).hidden = false;
-  el("header-title").textContent = VIEW_TITLES[id] || "IDAF/AC";
+  el("header-title").textContent = VIEW_TITLES[id] || "CIDAF";
   el("btn-home").hidden = id === "view-home";
   window.scrollTo(0, 0);
 }

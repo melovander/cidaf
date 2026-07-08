@@ -1,6 +1,6 @@
 {
-  "name": "IDAF/AC - Multas e Taxas",
-  "short_name": "IDAF Multas",
+  "name": "CIDAF - Calculadora IDAF/AC",
+  "short_name": "CIDAF",
   "description": "Calculadora offline de multas, taxas e emolumentos do IDAF/AC (Decreto 11.368/2023)",
   "start_url": "./index.html",
   "scope": "./",
