@@ -14,13 +14,18 @@
 
 <header class="app-header">
   <button id="btn-home" class="btn-icon" aria-label="Voltar ao início" hidden>&#8592;</button>
-  <h1 id="header-title">CIDAF</h1>
+  <img src="icons/icon-192.png" alt="" class="header-logo" id="header-logo">
+  <div class="header-titles">
+    <h1 id="header-title">CIDAF</h1>
+    <span id="header-subtitle" class="header-subtitle">Calculadora IDAF/AC</span>
+  </div>
 </header>
 
 <main id="app">
   <!-- Tela inicial -->
   <section id="view-home" class="view">
-    <p class="subtitle">Cálculo de multas e taxas &middot; Decreto 11.368/2023</p>
+    <p class="org-nome" id="home-orgao-nome">Instituto de Defesa Agropecuária e Florestal do Estado do Acre &mdash; IDAF/AC</p>
+    <p class="subtitle">Calculadora de campo para multas, taxas, emolumentos e GTA da Defesa Sanitária Animal.</p>
     <div class="home-grid">
       <button class="home-btn" data-view="view-multas">
         <span class="home-btn-icon" aria-hidden="true">
@@ -47,6 +52,12 @@
         <span>Buscar Infração</span>
       </button>
     </div>
+    <div class="org-box">
+      <p><strong id="home-orgao-completo">Instituto de Defesa Agropecuária e Florestal do Estado do Acre (IDAF/AC)</strong></p>
+      <p id="home-escopo-nota">Este aplicativo cobre exclusivamente a Defesa Sanitária Animal. Não inclui defesa sanitária vegetal, inspeção de produtos de origem animal (POA) nem outras taxas do IDAF/AC fora desse escopo.</p>
+      <p class="org-box-base-legal" id="home-base-legal"></p>
+    </div>
+
     <p class="disclaimer">Este aplicativo N&Atilde;O sugere enquadramento legal. O servidor responsável escolhe a infração; o app apenas calcula o valor e ajuda a redigir a descrição.</p>
 
   </section>

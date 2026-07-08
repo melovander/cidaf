@@ -4,6 +4,12 @@
     "decreto_base": "Decreto nº 11.368, de 23 de novembro de 2023",
     "decreto_alterador": "Decreto nº 11.728, de 31 de julho de 2025",
     "lei_base": "Lei nº 3.724, de 13 de abril de 2021",
+    "orgao": {
+      "nome": "Instituto de Defesa Agropecuária e Florestal do Estado do Acre",
+      "sigla": "IDAF/AC",
+      "area_atuacao": "Defesa Sanitária Animal",
+      "escopo_nota": "Este aplicativo cobre exclusivamente a Defesa Sanitária Animal. Não inclui defesa sanitária vegetal, inspeção de produtos de origem animal (POA) nem outras taxas do IDAF/AC fora desse escopo."
+    },
     "observacao_texto": "Todos os valores e descrições refletem o texto VIGENTE, já com as alterações do Decreto 11.728/2025.",
     "principios_do_app": [
       "O app NÃO sugere enquadramento; o servidor (AFEA ou médico veterinário oficial) escolhe a infração. O app apenas calcula o valor e auxilia na confecção da descrição.",

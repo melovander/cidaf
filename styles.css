@@ -53,6 +53,28 @@ button, input, select { font: inherit; }
 }
 .app-header h1 { font-size: 1.1rem; color: #fff; margin: 0; }
 
+.header-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.header-titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.header-subtitle {
+  font-size: .72rem;
+  color: #dce6f2;
+  opacity: .9;
+}
+.header-subtitle[hidden] { display: none; }
+
 .btn-icon {
   background: none;
   border: none;
@@ -75,7 +97,28 @@ main#app {
 .view { animation: fadein .12s ease-in; }
 @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 
+.org-nome {
+  color: var(--color-text-muted);
+  font-size: .85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
 .subtitle { color: var(--color-text-muted); margin-bottom: 16px; }
+
+.org-box {
+  background: var(--color-primary-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+  font-size: .88rem;
+  color: var(--color-text-muted);
+}
+.org-box p { margin: 0 0 6px; }
+.org-box p:last-child { margin-bottom: 0; }
+.org-box strong { color: var(--color-primary-dark); font-size: .92rem; }
+.org-box-base-legal { font-size: .8rem; font-style: italic; }
 
 .home-grid {
   display: grid;

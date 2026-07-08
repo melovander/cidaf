@@ -82,6 +82,7 @@ function showView(id) {
   document.querySelectorAll(".view").forEach((v) => { v.hidden = true; });
   el(id).hidden = false;
   el("header-title").textContent = VIEW_TITLES[id] || "CIDAF";
+  el("header-subtitle").hidden = id !== "view-home";
   el("btn-home").hidden = id === "view-home";
   window.scrollTo(0, 0);
 }
@@ -110,6 +111,17 @@ function setupNav() {
 function renderFooter() {
   const urf = DATA.meta.urf_ac;
   el("footer-urf").textContent = `URF/AC ${urf.exercicio}: ${formatBRL(urf.valor_reais)}`;
+}
+
+/* ---------------- Identificação institucional (home) ---------------- */
+
+function renderOrgaoInfo() {
+  const meta = DATA.meta;
+  const orgao = meta.orgao;
+  el("home-orgao-nome").textContent = `${orgao.nome} — ${orgao.sigla}`;
+  el("home-orgao-completo").textContent = `${orgao.nome} (${orgao.sigla})`;
+  el("home-escopo-nota").textContent = orgao.escopo_nota;
+  el("home-base-legal").textContent = `Base legal: ${meta.decreto_base}, com as alterações do ${meta.decreto_alterador} (texto vigente).`;
 }
 
 /* ---------------- Regras transversais (multas) ---------------- */
@@ -469,7 +481,7 @@ function buildMultaAutoTexto() {
 
   const lines = [];
   lines.push(`INFRAÇÃO: ${raw.descricao}`);
-  lines.push(`Previsão legal: ${previsao} do Decreto nº 11.368/2023.`);
+  lines.push(`Previsão legal: ${previsao} do ${DATA.meta.decreto_base}.`);
   lines.push("");
   lines.push("Memória de cálculo:");
   calc.breakdown.forEach((b) => {
@@ -634,7 +646,7 @@ function buildTaxaCopiaTexto() {
   const previsao = sel.kind === "lab-item" ? DATA.taxas_emolumentos.diagnostico_laboratorial.previsao_legal : it.previsao_legal;
   const lines = [];
   lines.push(`TAXA: ${it.descricao}`);
-  lines.push(`Previsão legal: ${previsao} do Decreto nº 11.368/2023.`);
+  lines.push(`Previsão legal: ${previsao} do ${DATA.meta.decreto_base}.`);
   if (sel.kind === "taxa" && it.id === "tx_IX") {
     lines.push(`Folhas: ${taxaState.folhas}`);
   } else {
@@ -892,7 +904,7 @@ function buildGtaCopiaTexto() {
   const urf = DATA.meta.urf_ac;
   const lines = [];
   lines.push(`GTA: ${item.grupo}`);
-  lines.push(`Previsão legal: ${DATA.tabela_gta_anexo_iii.base_legal} do Decreto nº 11.368/2023.`);
+  lines.push(`Previsão legal: ${DATA.tabela_gta_anexo_iii.base_legal} do ${DATA.meta.decreto_base}.`);
   lines.push(`Quantidade informada: ${gtaState.quantidade}${gtaState.lastDetalhe ? " (" + gtaState.lastDetalhe + ")" : ""}`);
   lines.push(`VALOR: ${formatURF(gtaState.lastTotal)} URF/AC = ${formatBRL(urfToReais(gtaState.lastTotal))}`);
   lines.push(`(URF/AC ${urf.exercicio} = ${formatBRL(urf.valor_reais)} — ${urf.fonte})`);
@@ -1084,6 +1096,7 @@ async function init() {
   }
 
   renderFooter();
+  renderOrgaoInfo();
   setupNav();
   setupMultas();
   setupTaxas();
