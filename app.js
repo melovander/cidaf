@@ -110,18 +110,16 @@ function setupNav() {
 
 function renderFooter() {
   const urf = DATA.meta.urf_ac;
+  const orgao = DATA.meta.orgao;
   el("footer-urf").textContent = `URF/AC ${urf.exercicio}: ${formatBRL(urf.valor_reais)}`;
+  el("footer-orgao").textContent = `${orgao.nome} — ${orgao.sigla}`;
 }
 
-/* ---------------- Identificação institucional (home) ---------------- */
+/* ---------------- Aviso legal (home) ---------------- */
 
-function renderOrgaoInfo() {
+function renderHomeDisclaimer() {
   const meta = DATA.meta;
-  const orgao = meta.orgao;
-  el("home-orgao-nome").textContent = `${orgao.nome} — ${orgao.sigla}`;
-  el("home-orgao-completo").textContent = `${orgao.nome} (${orgao.sigla})`;
-  el("home-escopo-nota").textContent = orgao.escopo_nota;
-  el("home-base-legal").textContent = `Base legal: ${meta.decreto_base}, com as alterações do ${meta.decreto_alterador} (texto vigente).`;
+  el("home-disclaimer").textContent = `Este aplicativo é baseado no ${meta.decreto_base}, com as alterações do ${meta.decreto_alterador} (texto vigente). NÃO sugere enquadramento legal — o servidor responsável escolhe a infração; o app apenas calcula o valor e ajuda a redigir a descrição.`;
 }
 
 /* ---------------- Regras transversais (multas) ---------------- */
@@ -1096,7 +1094,7 @@ async function init() {
   }
 
   renderFooter();
-  renderOrgaoInfo();
+  renderHomeDisclaimer();
   setupNav();
   setupMultas();
   setupTaxas();

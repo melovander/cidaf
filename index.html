@@ -24,7 +24,6 @@
 <main id="app">
   <!-- Tela inicial -->
   <section id="view-home" class="view">
-    <p class="org-nome" id="home-orgao-nome">Instituto de Defesa Agropecuária e Florestal do Estado do Acre &mdash; IDAF/AC</p>
     <p class="subtitle">Calculadora de campo para multas, taxas, emolumentos e GTA da Defesa Sanitária Animal.</p>
     <div class="home-grid">
       <button class="home-btn" data-view="view-multas">
@@ -52,13 +51,7 @@
         <span>Buscar Infração</span>
       </button>
     </div>
-    <div class="org-box">
-      <p><strong id="home-orgao-completo">Instituto de Defesa Agropecuária e Florestal do Estado do Acre (IDAF/AC)</strong></p>
-      <p id="home-escopo-nota">Este aplicativo cobre exclusivamente a Defesa Sanitária Animal. Não inclui defesa sanitária vegetal, inspeção de produtos de origem animal (POA) nem outras taxas do IDAF/AC fora desse escopo.</p>
-      <p class="org-box-base-legal" id="home-base-legal"></p>
-    </div>
-
-    <p class="disclaimer">Este aplicativo N&Atilde;O sugere enquadramento legal. O servidor responsável escolhe a infração; o app apenas calcula o valor e ajuda a redigir a descrição.</p>
+    <p class="disclaimer" id="home-disclaimer"></p>
 
   </section>
 
@@ -144,6 +137,7 @@
 
 <footer class="app-footer" id="app-footer">
   <span id="footer-urf">Carregando URF/AC...</span>
+  <span class="footer-orgao" id="footer-orgao"></span>
   <span class="footer-credit">Desenvolvido por Vander da Rocha Melo</span>
 </footer>
 

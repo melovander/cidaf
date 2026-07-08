@@ -7,8 +7,7 @@
     "orgao": {
       "nome": "Instituto de Defesa Agropecuária e Florestal do Estado do Acre",
       "sigla": "IDAF/AC",
-      "area_atuacao": "Defesa Sanitária Animal",
-      "escopo_nota": "Este aplicativo cobre exclusivamente a Defesa Sanitária Animal. Não inclui defesa sanitária vegetal, inspeção de produtos de origem animal (POA) nem outras taxas do IDAF/AC fora desse escopo."
+      "area_atuacao": "Defesa Sanitária Animal"
     },
     "observacao_texto": "Todos os valores e descrições refletem o texto VIGENTE, já com as alterações do Decreto 11.728/2025.",
     "principios_do_app": [
